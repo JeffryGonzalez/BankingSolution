@@ -35,5 +35,16 @@ namespace BankingTests
 
             Assert.Equal(0, account.GetBalance());
         }
+
+        //[Fact]
+        //public void TempReplicateIssueWithTakingMoneyToZero()
+        //{
+        //    var account = new BankAccount();
+
+
+        //    Assert.Throws<OverdraftException>(() =>
+        //    account.Withdraw(account.GetBalance())
+        //    );
+        //}
     }
 }
