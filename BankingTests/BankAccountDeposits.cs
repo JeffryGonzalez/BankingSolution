@@ -12,7 +12,7 @@ namespace BankingTests
         public void DepositingMoneyIncreasesTheBalance()
         {
             // Given
-            var account = new BankAccount();
+            var account = new BankAccount(new DummyBonusCalculator());
             var openingBalance = account.GetBalance();
             var amountToDeposit = 1M;
 
