@@ -56,6 +56,12 @@ namespace BankKiosk
                 txtAmount.Text = _bankAccount.GetBalance().ToString();
                 txtAmount.Focus();
             }
+            catch(BadAmountException)
+            {
+                MessageBox.Show("You are a bad person and you should feel bad about yourself.");
+                txtAmount.SelectAll();
+                txtAmount.Focus();
+            }
         }
 
       
