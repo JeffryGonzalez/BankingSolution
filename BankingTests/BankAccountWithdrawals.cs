@@ -1,4 +1,5 @@
 ﻿using BankingDomain;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,7 @@ namespace BankingTests
 
         public BankAccountWithdrawals()
         {
-            _account = new BankAccount(new DummyBonusCalculator());
+            _account = new BankAccount(new DummyBonusCalculator(), new Mock<INarcOnAccounts>().Object);
             _openingBalance = _account.GetBalance();
         }
 
