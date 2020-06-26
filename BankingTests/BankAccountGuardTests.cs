@@ -1,4 +1,5 @@
 ﻿using BankingDomain;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +15,7 @@ namespace BankingTests
         [InlineData(-1)]
         public void DepositThrowsForBadAmounts(decimal badAmount)
         {
-            var account = new BankAccount(null, null);
+            var account = new BankAccount(new Mock<ICalculateBonuses>().Object, new Mock<INarcOnAccounts>().Object);
 
             Assert.Throws<BadAmountException>(() => account.Deposit(badAmount));
 
@@ -26,7 +27,7 @@ namespace BankingTests
         [InlineData(-1)]
         public void WithdrawThrowsForBadAmounts(decimal badAmount)
         {
-            var account = new BankAccount(null, null);
+            var account = new BankAccount(new Mock<ICalculateBonuses>().Object, new Mock<INarcOnAccounts>().Object);
 
             Assert.Throws<BadAmountException>(() => account.Withdraw(badAmount));
 
