@@ -15,10 +15,23 @@ namespace BankingTests
         [InlineData(-1)]
         public void DepositThrowsForBadAmounts(decimal badAmount)
         {
-            var account = new BankAccount(new Mock<ICalculateBonuses>().Object, new Mock<INarcOnAccounts>().Object);
+
+            var mockBonusCalculator = new Mock<ICalculateBonuses>();
+            var mockNarc = new Mock<INarcOnAccounts>();
+            var account = new BankAccount(mockBonusCalculator.Object, mockNarc.Object);
 
             Assert.Throws<BadAmountException>(() => account.Deposit(badAmount));
 
+            mockBonusCalculator.Verify(
+                m => m.GetDepositBonusFor(It.IsAny<decimal>(),
+                It.IsAny<decimal>()
+                ), Times.Never);
+
+            mockNarc.Verify(
+                m => m.NotifyOfWithdrawal(
+                    It.IsAny<BankAccount>(),
+                    It.IsAny<decimal>())
+                , Times.Never);
         }
 
         [Theory]

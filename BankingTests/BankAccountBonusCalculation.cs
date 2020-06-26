@@ -14,9 +14,7 @@ namespace BankingTests
         public void BonusCalculatorIsUsedProperly()
         {
 
-            // 1. the correct amount is passed to the bonus calculator.
-            // 2. the correct balance is passed to the bonus calculator.
-            // 3. WHATEVER the bonus calculator returns is added to the balance.
+     
             var fakeBonusCalculator = new Mock<ICalculateBonuses>();
             var account = new BankAccount(fakeBonusCalculator.Object, new Mock<INarcOnAccounts>().Object);
             fakeBonusCalculator.Setup(m => m.GetDepositBonusFor(100, account.GetBalance())).Returns(42);

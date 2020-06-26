@@ -22,12 +22,21 @@ namespace BankingDomain
         public void Deposit(decimal amountToDeposit)
         {
             GuardAmountInRange(amountToDeposit);
-            
 
-            decimal amountOfBonus = _bonusCalculator.GetDepositBonusFor(amountToDeposit, _currentBalance);
-            _currentBalance += amountToDeposit + amountOfBonus;
+            try
+            {
 
-         
+                decimal amountOfBonus = _bonusCalculator.GetDepositBonusFor(amountToDeposit, _currentBalance);
+                _currentBalance += amountToDeposit + amountOfBonus;
+            }
+            catch (Exception)
+            {
+
+                // Gulp
+                _currentBalance += amountToDeposit;
+            }
+
+           
         }
 
         public void Withdraw(decimal amountToWithdraw)
@@ -38,6 +47,7 @@ namespace BankingDomain
             _feds.NotifyOfWithdrawal(this, amountToWithdraw);
             _currentBalance -= amountToWithdraw;
 
+      
         }
 
         private void GuardOverdraft(decimal amountToWithdraw)
